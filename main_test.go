@@ -5,7 +5,7 @@ import "testing"
 func TestParseDuration(t *testing.T) {
 	cases := []struct {
 		in   string
-		days int64
+		days int
 	}{
 		{"5d", 5},
 		{"5 days", 5},
@@ -16,6 +16,8 @@ func TestParseDuration(t *testing.T) {
 		if err != nil {
 			t.Fatalf("parseDuration(%q): expected nil err, got %v", tt.in, err)
 		}
-		_ = d
+		if d.Days != tt.days {
+			t.Errorf("parseDuration(%q): expected %d, got %d", tt.in, tt.days, d.Days)
+		}
 	}
 }
